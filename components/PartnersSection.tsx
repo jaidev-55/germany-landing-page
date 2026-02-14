@@ -335,7 +335,6 @@ const UniversityCard: React.FC<UniversityCardProps> = ({
           </p>
         </div>
 
-        {/* Learn More Button */}
         <button
           type="button"
           onClick={onLearnMore}
