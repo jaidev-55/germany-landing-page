@@ -4,6 +4,8 @@ import { motion, type Variants, type Transition } from "framer-motion";
 import { FaLaptopCode, FaChartBar, FaCogs, FaHeartbeat } from "react-icons/fa";
 import { FiArrowRight, FiTrendingUp } from "react-icons/fi";
 import type { IconType } from "react-icons";
+import ModalForm from "./ModalForm";
+import { useState } from "react";
 
 interface JobItem {
   Icon: IconType;
@@ -166,99 +168,103 @@ const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
   );
 };
 
-/*
-   HIGH-DEMAND JOBS SECTION
- */
+const HighDemandJobsSection: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  return (
+    <section className="relative py-16  bg-[#f8faff] overflow-hidden">
+      {/* Background */}
+      <div className="absolute top-[-6%] right-[-5%] w-87.5 sm:w-112.5 h-87.5 sm:h-112.5 rounded-full bg-blue-50/50 blur-[80px] pointer-events-none" />
+      <div className="absolute bottom-[-8%] left-[-4%] w-75 sm:w-95 h-75 sm:h-95 rounded-full bg-indigo-50/30 blur-[70px] pointer-events-none" />
 
-const HighDemandJobsSection: React.FC = () => (
-  <section className="relative py-16 sm:py-20 md:py-28 bg-[#f8faff] overflow-hidden">
-    {/* Background */}
-    <div className="absolute top-[-6%] right-[-5%] w-87.5 sm:w-112.5 h-87.5 sm:h-112.5 rounded-full bg-blue-50/50 blur-[80px] pointer-events-none" />
-    <div className="absolute bottom-[-8%] left-[-4%] w-75 sm:w-95 h-75 sm:h-95 rounded-full bg-indigo-50/30 blur-[70px] pointer-events-none" />
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-15"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #dbeafe 1px, transparent 1px), linear-gradient(to bottom, #dbeafe 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+        }}
+      />
 
-    {/* Grid pattern */}
-    <div
-      className="absolute inset-0 pointer-events-none opacity-15"
-      style={{
-        backgroundImage:
-          "linear-gradient(to right, #dbeafe 1px, transparent 1px), linear-gradient(to bottom, #dbeafe 1px, transparent 1px)",
-        backgroundSize: "56px 56px",
-      }}
-    />
+      <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <motion.div
+            variants={fadeUp(0)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white border border-blue-100 shadow-[0_1px_4px_rgba(37,99,235,0.06)] text-xs sm:text-sm font-semibold text-blue-600 mb-4 sm:mb-5">
+              <FiTrendingUp className="w-3.5 h-3.5" />
+              Career Opportunities
+            </span>
+          </motion.div>
 
-    <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
-      {/* Header */}
-      <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <motion.h2
+            variants={fadeUp(0.06)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] font-extrabold text-gray-900 tracking-tight leading-[1.12] mb-3 sm:mb-4 font-display"
+          >
+            High-Demand Jobs in{" "}
+            <span className="bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+              Germany 2026
+            </span>
+          </motion.h2>
+
+          <motion.p
+            variants={fadeUp(0.12)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="text-gray-400 text-sm sm:text-base md:text-[1.05rem] leading-[1.7] max-w-2xl mx-auto"
+          >
+            Based on 2026 market data — these are the most in-demand fields with
+            excellent salary prospects for international graduates
+          </motion.p>
+        </div>
+
+        {/*  Jobs Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {jobs.map((job: JobItem, index: number) => (
+            <JobCard key={job.title} job={job} index={index} />
+          ))}
+        </div>
+
         <motion.div
-          variants={fadeUp(0)}
+          variants={fadeUp(0.3)}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
+          className="text-center mt-10 sm:mt-14"
         >
-          <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white border border-blue-100 shadow-[0_1px_4px_rgba(37,99,235,0.06)] text-xs sm:text-sm font-semibold text-blue-600 mb-4 sm:mb-5">
-            <FiTrendingUp className="w-3.5 h-3.5" />
-            Career Opportunities
-          </span>
+          <p className="text-gray-500 text-sm sm:text-base mb-6 sm:mb-7 max-w-2xl mx-auto leading-relaxed">
+            With an 18-month post-study work visa and PR after 2 years, Germany
+            offers one of the strongest career pathways in Europe.
+          </p>
+
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="group relative inline-flex items-center justify-center gap-2 sm:gap-2.5 px-7 sm:px-9 py-3.5 sm:py-4 rounded-xl font-semibold text-sm sm:text-base text-white bg-linear-to-r from-blue-600 to-blue-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 overflow-hidden cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-200"
+          >
+            {/* Shimmer effect */}
+            <span className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out">
+              <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-12" />
+            </span>
+
+            <span className="relative flex items-center gap-2 sm:gap-2.5">
+              Explore Your Career Path
+              <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            </span>
+          </button>
         </motion.div>
-
-        <motion.h2
-          variants={fadeUp(0.06)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] font-extrabold text-gray-900 tracking-tight leading-[1.12] mb-3 sm:mb-4 font-display"
-        >
-          High-Demand Jobs in{" "}
-          <span className="bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
-            Germany 2026
-          </span>
-        </motion.h2>
-
-        <motion.p
-          variants={fadeUp(0.12)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="text-gray-400 text-sm sm:text-base md:text-[1.05rem] leading-[1.7] max-w-2xl mx-auto"
-        >
-          Based on 2026 market data — these are the most in-demand fields with
-          excellent salary prospects for international graduates
-        </motion.p>
       </div>
-
-      {/* ════════ Jobs Grid ════════ */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        {jobs.map((job: JobItem, index: number) => (
-          <JobCard key={job.title} job={job} index={index} />
-        ))}
-      </div>
-
-      {/* ════════ Bottom note + CTA ════════ */}
-      <motion.div
-        variants={fadeUp(0.3)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="text-center mt-10 sm:mt-14"
-      >
-        <p className="text-gray-400 text-xs sm:text-sm mb-5 sm:mb-6">
-          With an 18-month post-study work visa and PR after 2 years, Germany
-          offers one of the strongest career pathways in Europe
-        </p>
-        <a
-          href="#contact"
-          className="group relative inline-flex items-center justify-center gap-2 sm:gap-2.5 px-7 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold text-sm sm:text-[0.95rem] text-white overflow-hidden shadow-[0_6px_24px_-4px_rgba(37,99,235,0.35)] hover:shadow-[0_10px_32px_-2px_rgba(37,99,235,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
-        >
-          <span className="absolute inset-0 bg-linear-to-r from-blue-600 to-blue-500" />
-          <span className="absolute inset-0 bg-linear-to-r from-blue-700 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <span className="relative flex items-center gap-2 sm:gap-2.5">
-            Explore Your Career Path
-            <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-          </span>
-        </a>
-      </motion.div>
-    </div>
-  </section>
-);
+      <ModalForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </section>
+  );
+};
 
 export default HighDemandJobsSection;

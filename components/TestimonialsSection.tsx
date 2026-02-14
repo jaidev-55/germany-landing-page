@@ -133,14 +133,14 @@ const TestimonialsSection: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="relative py-14 sm:py-18 md:py-24 bg-[#f8faff] overflow-hidden"
+      className="relative py-14  bg-[#f8faff] overflow-hidden"
     >
       {/* Background */}
       <div className="absolute top-[-6%] right-[-5%] w-87.5 sm:w-112.5 h-87.5 sm:h-112.5 rounded-full bg-blue-50/50 blur-[80px] pointer-events-none" />
       <div className="absolute bottom-[-8%] left-[-4%] w-75 sm:w-95 h-75 sm:h-95 rounded-full bg-indigo-50/30 blur-[70px] pointer-events-none" />
 
       <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
-        {/* ════════ Header ════════ */}
+        {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
           <motion.div
             variants={fadeUp(0)}

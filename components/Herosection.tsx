@@ -20,6 +20,8 @@ import {
 } from "react-icons/fi";
 import type { IconType } from "react-icons";
 import Image from "next/image";
+import ModalForm from "./ModalForm";
+import { useState } from "react";
 
 interface TrustBadgeItem {
   Icon: IconType;
@@ -66,35 +68,36 @@ const pop = (delay: number = 0): Variants => ({
 const trustBadges: TrustBadgeItem[] = [
   {
     Icon: FaGraduationCap,
-    label: "Zero Tuition Fees",
-    sub: "At 400+ public universities",
+    label: "Tuition-Free Education",
+    sub: "400+ Public Universities",
   },
   {
-    Icon: FaShieldAlt,
-    label: "17,000+ Programs",
-    sub: "Across every field of study",
+    Icon: FaAward,
+    label: "High Quality Education",
+    sub: "Globally Ranked Institutions",
   },
   {
     Icon: FaClock,
     label: "18-Month Stay-Back",
-    sub: "Post-study work visa",
+    sub: "Post-Study Work Visa",
   },
   {
     Icon: FaBriefcase,
-    label: "Free Counseling",
-    sub: "End-to-end expert guidance",
+    label: "PR Opportunities",
+    sub: "Fast-track Permanent Residency",
   },
 ];
 
 const microStats: MicroStatItem[] = [
   { value: "98%", label: "Visa Success", Icon: FiShield },
-  { value: "€0", label: "Tuition Fee", Icon: FiDollarSign },
-  { value: "18 mon", label: "Stay-back Visa", Icon: FiClock },
+  { value: "€0", label: "Tuition Fees", Icon: FiDollarSign },
+  { value: "18 Months", label: "Stay-Back Visa", Icon: FiClock },
 ];
 
 const HeroSection: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <section className="relative pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-36 md:pb-28 lg:pt-40 lg:pb-32 overflow-hidden bg-[#f8faff]">
+    <section className="relative pt-24 pb-16  overflow-hidden bg-[#f8faff]">
       <svg
         className="absolute top-0 right-0 w-70 sm:w-87.5 lg:w-105 h-70 sm:h-87.5 lg:h-105 text-blue-300/25 pointer-events-none hidden sm:block"
         viewBox="0 0 420 420"
@@ -141,11 +144,13 @@ const HeroSection: React.FC = () => {
               animate="show"
               className="font-display text-[2rem] sm:text-[2.5rem] md:text-5xl lg:text-[3.25rem] xl:text-[3.65rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-gray-900 mb-4 sm:mb-5"
             >
-              Kickstart your Journey
-              <span className="relative inline-block mt-1 ml-3">
+              Study in Germany
+              <br className="hidden sm:block" />
+              <span className="relative inline-block mt-2">
                 <span className="bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
-                  to Germany
+                  with Low Fees & PR Opportunities
                 </span>
+
                 <motion.span
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
@@ -154,31 +159,33 @@ const HeroSection: React.FC = () => {
                     delay: 0.7,
                     ease: customEase,
                   }}
-                  className="absolute -bottom-1 sm:-bottom-1.5 left-0 w-full h-0.5 sm:h-0.75 origin-left rounded-full bg-linear-to-r from-blue-500 via-cyan-400 to-transparent"
+                  className="absolute -bottom-1 sm:-bottom-1.5 left-0 w-full h-0.5 origin-left rounded-full bg-linear-to-r from-blue-500 via-cyan-400 to-transparent"
                 />
               </span>
             </motion.h1>
 
-            {/*  Description — from provided content */}
+            {/*  Description  */}
             <motion.p
               variants={fadeUp(0.16)}
               initial="hidden"
               animate="show"
-              className="text-[0.95rem] sm:text-base md:text-lg text-gray-500 leading-[1.7] max-w-xl mb-7 sm:mb-9"
+              className="text-[1rem] sm:text-lg md:text-xl font-semibold text-gray-700 leading-[1.6] max-w-xl mb-5"
             >
-              The most challenging part about studying in Germany is choosing
-              the right university that aligns your course and interest.{" "}
-              <span className="text-gray-900 font-semibold">
-                Abroad Scholar
-              </span>{" "}
-              is your invincible partner — guiding you from beginning to end
-              with{" "}
-              <span className="text-blue-600 font-semibold">
-                free post-admission assistance
-              </span>
-              .
+              Study in Germany with low tuition fees and secure PR pathways in
+              just 3 years.*
             </motion.p>
 
+            <motion.p
+              variants={fadeUp(0.2)}
+              initial="hidden"
+              animate="show"
+              className="text-[0.95rem] sm:text-base md:text-lg text-gray-500 leading-[1.7] max-w-xl mb-7 sm:mb-9"
+            >
+              Study at tuition-free public universities with high-quality
+              education, 18-month stay-back visa, and strong career
+              opportunities after graduation. Abroad Scholar guides you from
+              admission to post-arrival — completely free.
+            </motion.p>
             <motion.div
               variants={fadeUp(0.24)}
               initial="hidden"
@@ -186,26 +193,31 @@ const HeroSection: React.FC = () => {
               className="flex flex-col sm:flex-row gap-3 sm:gap-3.5 mb-8 sm:mb-10"
             >
               {/* Primary CTA */}
-              <a
-                href="#contact"
-                className="group relative inline-flex items-center justify-center gap-2 sm:gap-2.5 px-6 sm:px-8 py-3.5 sm:py-[0.95rem] rounded-xl font-bold text-sm sm:text-[0.95rem] text-white overflow-hidden shadow-[0_6px_24px_-4px_rgba(37,99,235,0.35)] hover:shadow-[0_10px_32px_-2px_rgba(37,99,235,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="group cursor-pointer relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-semibold text-sm sm:text-base text-white bg-linear-to-r from-blue-600 to-blue-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 overflow-hidden"
               >
-                <span className="absolute inset-0 bg-linear-to-r from-blue-600 to-blue-500" />
-                <span className="absolute inset-0 bg-linear-to-r from-blue-700 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative flex items-center gap-2 sm:gap-2.5">
-                  Get Free Counseling
-                  <FaArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
+                {/* Shimmer */}
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out">
+                  <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-12" />
                 </span>
-              </a>
+
+                <span className="relative flex items-center gap-2">
+                  Get Free Counseling
+                  <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                </span>
+              </button>
 
               {/* Secondary CTA */}
-              <a
-                href="#contact"
-                className="group inline-flex items-center justify-center gap-2 sm:gap-2.5 px-6 sm:px-8 py-3.5 sm:py-[0.95rem] rounded-xl font-semibold text-sm sm:text-[0.95rem] text-blue-600 bg-white border border-blue-200/70 shadow-sm hover:border-blue-300 hover:shadow-md hover:-translate-y-px transition-all duration-300"
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="group cursor-pointer inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-medium text-sm sm:text-base text-blue-600 bg-white border border-blue-200 shadow-sm hover:border-blue-300 hover:shadow-md hover:-translate-y-0.5 active:scale-95 transition-all duration-300"
               >
-                <FiCheckCircle className="w-4 h-4 sm:w-[1.1rem] sm:h-[1.1rem] text-blue-500" />
+                <FiCheckCircle className="w-4 h-4 text-blue-500" />
                 Check Eligibility
-              </a>
+              </button>
             </motion.div>
 
             {/* ── Micro Stats ── */}
@@ -366,6 +378,7 @@ const HeroSection: React.FC = () => {
           })}
         </motion.div>
       </div>
+      <ModalForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 };

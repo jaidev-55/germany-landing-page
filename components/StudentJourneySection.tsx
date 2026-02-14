@@ -10,6 +10,8 @@ import {
 } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
 import type { IconType } from "react-icons";
+import ModalForm from "./ModalForm";
+import { useState } from "react";
 
 interface StepItem {
   Icon: IconType;
@@ -140,137 +142,142 @@ const StepCard: React.FC<StepCardProps> = ({ step, index, isLast }) => {
    STUDENT JOURNEY SECTION
    */
 
-const StudentJourneySection: React.FC = () => (
-  <section className="relative py-16 sm:py-20 md:py-28 bg-white overflow-hidden">
-    {/* Background */}
-    <div className="absolute top-[-6%] left-[-5%] w-87.5 sm:w-112.5 h-87.5 sm:h-112.5 rounded-full bg-blue-50/40 blur-[80px] pointer-events-none" />
-    <div className="absolute bottom-[-8%] right-[-5%] w-75 sm:w-100 h-75 sm:h-100 rounded-full bg-indigo-50/30 blur-[70px] pointer-events-none" />
+const StudentJourneySection: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  return (
+    <section className="relative py-16  bg-white overflow-hidden">
+      {/* Background */}
+      <div className="absolute top-[-6%] left-[-5%] w-87.5 sm:w-112.5 h-87.5 sm:h-112.5 rounded-full bg-blue-50/40 blur-[80px] pointer-events-none" />
+      <div className="absolute bottom-[-8%] right-[-5%] w-75 sm:w-100 h-75 sm:h-100 rounded-full bg-indigo-50/30 blur-[70px] pointer-events-none" />
 
-    <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
-      {/* Header */}
-      <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-        <motion.div
-          variants={fadeUp(0)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-        >
-          <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white border border-blue-100 shadow-[0_1px_4px_rgba(37,99,235,0.06)] text-xs sm:text-sm font-semibold text-blue-600 mb-4 sm:mb-5">
-            <FiArrowRight className="w-3.5 h-3.5" />
-            Your Journey
-          </span>
-        </motion.div>
+      <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <motion.div
+            variants={fadeUp(0)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white border border-blue-100 shadow-[0_1px_4px_rgba(37,99,235,0.06)] text-xs sm:text-sm font-semibold text-blue-600 mb-4 sm:mb-5">
+              <FiArrowRight className="w-3.5 h-3.5" />
+              Your Journey
+            </span>
+          </motion.div>
 
-        <motion.h2
-          variants={fadeUp(0.06)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] font-extrabold text-gray-900 tracking-tight leading-[1.12] mb-3 sm:mb-4 font-display"
-        >
-          5 Steps to{" "}
-          <span className="bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
-            Study in Germany
-          </span>
-        </motion.h2>
+          <motion.h2
+            variants={fadeUp(0.06)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] font-extrabold text-gray-900 tracking-tight leading-[1.12] mb-3 sm:mb-4 font-display"
+          >
+            5 Steps to{" "}
+            <span className="bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+              Study in Germany
+            </span>
+          </motion.h2>
 
-        <motion.p
-          variants={fadeUp(0.12)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="text-gray-400 text-sm sm:text-base md:text-[1.05rem] leading-[1.7] max-w-2xl mx-auto"
-        >
-          Abroad Scholar guides you through the entire process from beginning to
-          end —{" "}
-          <span className="text-gray-700 font-semibold">completely free</span>
-        </motion.p>
-      </div>
+          <motion.p
+            variants={fadeUp(0.12)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="text-gray-400 text-sm sm:text-base md:text-[1.05rem] leading-[1.7] max-w-2xl mx-auto"
+          >
+            Abroad Scholar guides you through the entire process from beginning
+            to end —{" "}
+            <span className="text-gray-700 font-semibold">completely free</span>
+          </motion.p>
+        </div>
 
-      {/* Steps — horizontal on desktop, vertical on mobile  */}
-
-      {/* Desktop: 5 columns */}
-      <div className="hidden lg:grid lg:grid-cols-5 gap-4 lg:gap-6">
-        {steps.map((step: StepItem, index: number) => (
-          <StepCard
-            key={step.title}
-            step={step}
-            index={index}
-            isLast={index === steps.length - 1}
-          />
-        ))}
-      </div>
-
-      {/* Mobile/Tablet: vertical timeline */}
-      <div className="lg:hidden relative pl-8 sm:pl-10 space-y-6 sm:space-y-8">
-        {/* Vertical line */}
-        <div className="absolute left-2.75 sm:left-3.25 top-2 bottom-2 w-0.5 bg-linear-to-b from-blue-300 via-indigo-300 to-emerald-300 rounded-full" />
-
-        {steps.map((step: StepItem, index: number) => {
-          const StepIcon = step.Icon;
-          return (
-            <motion.div
+        {/* Desktop: 5 columns */}
+        <div className="hidden lg:grid lg:grid-cols-5 gap-4 lg:gap-6">
+          {steps.map((step: StepItem, index: number) => (
+            <StepCard
               key={step.title}
-              variants={fadeUp(index * 0.06)}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-20px" }}
-              className="relative"
-            >
-              {/* Circle marker */}
-              <span
-                className={`absolute -left-8 sm:-left-10 top-1 w-6 h-6 rounded-full ${step.accentBg} border-[3px] border-white shadow-sm flex items-center justify-center`}
-              >
-                <span className="text-[0.5rem] font-bold text-gray-900">
-                  {step.step}
-                </span>
-              </span>
+              step={step}
+              index={index}
+              isLast={index === steps.length - 1}
+            />
+          ))}
+        </div>
 
-              {/* Card */}
-              <div className="bg-white rounded-xl p-4 sm:p-5 border border-gray-100 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-                <div className="flex items-center gap-2.5 sm:gap-3 mb-2">
-                  <span
-                    className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg ${step.accentBg} border ${step.accentBorder}`}
-                  >
-                    <StepIcon
-                      className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${step.accent}`}
-                    />
+        <div className="lg:hidden relative pl-8 sm:pl-10 space-y-6 sm:space-y-8">
+          {/* Vertical line */}
+          <div className="absolute left-2.75 sm:left-3.25 top-2 bottom-2 w-0.5 bg-linear-to-b from-blue-300 via-indigo-300 to-emerald-300 rounded-full" />
+
+          {steps.map((step: StepItem, index: number) => {
+            const StepIcon = step.Icon;
+            return (
+              <motion.div
+                key={step.title}
+                variants={fadeUp(index * 0.06)}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-20px" }}
+                className="relative"
+              >
+                {/* Circle marker */}
+                <span
+                  className={`absolute -left-8 sm:-left-10 top-1 w-6 h-6 rounded-full ${step.accentBg} border-[3px] border-white shadow-sm flex items-center justify-center`}
+                >
+                  <span className="text-[0.5rem] font-bold text-gray-900">
+                    {step.step}
                   </span>
-                  <span className="font-bold text-gray-900 text-[0.88rem] sm:text-[0.92rem]">
-                    {step.title}
-                  </span>
+                </span>
+
+                {/* Card */}
+                <div className="bg-white rounded-xl p-4 sm:p-5 border border-gray-100 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                  <div className="flex items-center gap-2.5 sm:gap-3 mb-2">
+                    <span
+                      className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg ${step.accentBg} border ${step.accentBorder}`}
+                    >
+                      <StepIcon
+                        className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${step.accent}`}
+                      />
+                    </span>
+                    <span className="font-bold text-gray-900 text-[0.88rem] sm:text-[0.92rem]">
+                      {step.title}
+                    </span>
+                  </div>
+                  <p className="text-gray-400 text-xs sm:text-[0.8rem] leading-relaxed pl-10.5 sm:pl-12">
+                    {step.desc}
+                  </p>
                 </div>
-                <p className="text-gray-400 text-xs sm:text-[0.8rem] leading-relaxed pl-10.5 sm:pl-12">
-                  {step.desc}
-                </p>
-              </div>
-            </motion.div>
-          );
-        })}
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <motion.div
+          variants={fadeUp(0.35)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="text-center mt-10 sm:mt-14"
+        >
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="group relative inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base text-white bg-linear-to-r from-blue-600 to-blue-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 overflow-hidden cursor-pointer"
+          >
+            {/* Shimmer */}
+            <span className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out">
+              <span className="absolute inset-0 pointer-events-none bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-12" />
+            </span>
+
+            <span className="relative flex items-center gap-2">
+              Start Step 1 — Free Counseling
+              <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            </span>
+          </button>
+        </motion.div>
       </div>
 
-      {/* ════════ CTA ════════ */}
-      <motion.div
-        variants={fadeUp(0.35)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="text-center mt-10 sm:mt-14"
-      >
-        <a
-          href="#contact"
-          className="group relative inline-flex items-center justify-center gap-2 sm:gap-2.5 px-7 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold text-sm sm:text-[0.95rem] text-white overflow-hidden shadow-[0_6px_24px_-4px_rgba(37,99,235,0.35)] hover:shadow-[0_10px_32px_-2px_rgba(37,99,235,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
-        >
-          <span className="absolute inset-0 bg-linear-to-r from-blue-600 to-blue-500" />
-          <span className="absolute inset-0 bg-linear-to-r from-blue-700 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <span className="relative flex items-center gap-2 sm:gap-2.5">
-            Start Step 1 — Free Counseling
-            <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-          </span>
-        </a>
-      </motion.div>
-    </div>
-  </section>
-);
+      <ModalForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </section>
+  );
+};
 
 export default StudentJourneySection;

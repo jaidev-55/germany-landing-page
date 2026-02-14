@@ -109,10 +109,7 @@ const LeadCaptureForm: React.FC = () => {
   };
 
   return (
-    <section
-      id="contact"
-      className="relative py-14 sm:py-18 md:py-24 bg-white overflow-hidden"
-    >
+    <section id="contact" className="relative py-14  bg-white overflow-hidden">
       {/* Background */}
       <div className="absolute top-[-8%] right-[-6%] w-100 sm:w-125 h-100 sm:h-125 rounded-full bg-blue-50/50 blur-[90px] pointer-events-none" />
       <div className="absolute bottom-[-6%] left-[-4%] w-87.5 sm:w-100 h-87.5 sm:h-100 rounded-full bg-sky-50/40 blur-[80px] pointer-events-none" />

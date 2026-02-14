@@ -11,6 +11,8 @@ import {
 } from "react-icons/fa";
 import { FiZap, FiArrowRight, FiCheck } from "react-icons/fi";
 import type { IconType } from "react-icons";
+import ModalForm from "./ModalForm";
+import { useState } from "react";
 
 interface ServiceItem {
   Icon: IconType;
@@ -142,94 +144,102 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
   );
 };
 
-const ServicesSection: React.FC = () => (
-  <section
-    id="services"
-    className="relative py-16 sm:py-20 md:py-28 bg-[#f8faff] overflow-hidden"
-  >
-    {/* Background blobs */}
-    <div className="absolute top-[-6%] left-[-4%] w-87.5 sm:w-112.5 h-87.5 sm:h-112.5 rounded-full bg-blue-50/50 blur-[80px] pointer-events-none" />
-    <div className="absolute bottom-[-8%] right-[-5%] w-75 sm:w-100 h-75 sm:h-100 rounded-full bg-indigo-50/30 blur-[70px] pointer-events-none" />
+const ServicesSection: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  return (
+    <section
+      id="services"
+      className="relative py-16  bg-[#f8faff] overflow-hidden"
+    >
+      {/* Background blobs */}
+      <div className="absolute top-[-6%] left-[-4%] w-87.5 sm:w-112.5 h-87.5 sm:h-112.5 rounded-full bg-blue-50/50 blur-[80px] pointer-events-none" />
+      <div className="absolute bottom-[-8%] right-[-5%] w-75 sm:w-100 h-75 sm:h-100 rounded-full bg-indigo-50/30 blur-[70px] pointer-events-none" />
 
-    {/* Fine grid */}
-    <div
-      className="absolute inset-0 pointer-events-none opacity-20"
-      style={{
-        backgroundImage:
-          "linear-gradient(to right, #dbeafe 1px, transparent 1px), linear-gradient(to bottom, #dbeafe 1px, transparent 1px)",
-        backgroundSize: "56px 56px",
-      }}
-    />
+      {/* Fine grid */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-20"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #dbeafe 1px, transparent 1px), linear-gradient(to bottom, #dbeafe 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+        }}
+      />
 
-    <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
-      <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+      <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+          <motion.div
+            variants={fadeUp(0)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white border border-blue-100 shadow-[0_1px_4px_rgba(37,99,235,0.06)] text-xs sm:text-sm font-semibold text-blue-600 mb-4 sm:mb-5">
+              <FiZap className="w-3.5 h-3.5" />
+              Our Services
+            </span>
+          </motion.div>
+
+          <motion.h2
+            variants={fadeUp(0.06)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] font-extrabold text-gray-900 tracking-tight leading-[1.12] mb-3 sm:mb-4 font-display"
+          >
+            Why{" "}
+            <span className="bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+              Abroad Scholar?
+            </span>
+          </motion.h2>
+
+          <motion.p
+            variants={fadeUp(0.12)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="text-gray-400 text-sm sm:text-base md:text-[1.05rem] leading-relaxed"
+          >
+            Your invincible partner from choosing the right university to
+            landing in Germany — every step, completely guided and{" "}
+            <span className="text-gray-700 font-semibold">completely free</span>
+          </motion.p>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
+          {services.map((service: ServiceItem, index: number) => (
+            <ServiceCard key={service.title} service={service} index={index} />
+          ))}
+        </div>
+
         <motion.div
-          variants={fadeUp(0)}
+          variants={fadeUp(0.4)}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
+          className="text-center mt-10 sm:mt-14"
         >
-          <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white border border-blue-100 shadow-[0_1px_4px_rgba(37,99,235,0.06)] text-xs sm:text-sm font-semibold text-blue-600 mb-4 sm:mb-5">
-            <FiZap className="w-3.5 h-3.5" />
-            Our Services
-          </span>
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="group relative inline-flex items-center justify-center gap-2 sm:gap-2.5 px-7 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base text-white bg-linear-to-r from-blue-600 to-blue-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 overflow-hidden cursor-pointer"
+          >
+            {/* Shimmer */}
+            <span className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out">
+              <span className="absolute inset-0 pointer-events-none bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-12" />
+            </span>
+
+            <span className="relative flex items-center gap-2 sm:gap-2.5">
+              Get Started — It&apos;s Free
+              <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            </span>
+          </button>
         </motion.div>
-
-        <motion.h2
-          variants={fadeUp(0.06)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] font-extrabold text-gray-900 tracking-tight leading-[1.12] mb-3 sm:mb-4 font-display"
-        >
-          Why{" "}
-          <span className="bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
-            Abroad Scholar?
-          </span>
-        </motion.h2>
-
-        <motion.p
-          variants={fadeUp(0.12)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="text-gray-400 text-sm sm:text-base md:text-[1.05rem] leading-relaxed"
-        >
-          Your invincible partner from choosing the right university to landing
-          in Germany — every step, completely guided and{" "}
-          <span className="text-gray-700 font-semibold">completely free</span>
-        </motion.p>
       </div>
 
-      {/* Services Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
-        {services.map((service: ServiceItem, index: number) => (
-          <ServiceCard key={service.title} service={service} index={index} />
-        ))}
-      </div>
-
-      {/* Bottom CTA */}
-      <motion.div
-        variants={fadeUp(0.4)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="text-center mt-10 sm:mt-14"
-      >
-        <a
-          href="#contact"
-          className="group relative inline-flex items-center justify-center gap-2 sm:gap-2.5 px-7 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold text-sm sm:text-[0.95rem] text-white overflow-hidden shadow-[0_6px_24px_-4px_rgba(37,99,235,0.35)] hover:shadow-[0_10px_32px_-2px_rgba(37,99,235,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
-        >
-          <span className="absolute inset-0 bg-linear-to-r from-blue-600 to-blue-500" />
-          <span className="absolute inset-0 bg-linear-to-r from-blue-700 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <span className="relative flex items-center gap-2 sm:gap-2.5">
-            Get Started — It&apos;s Free
-            <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-          </span>
-        </a>
-      </motion.div>
-    </div>
-  </section>
-);
+      <ModalForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </section>
+  );
+};
 
 export default ServicesSection;

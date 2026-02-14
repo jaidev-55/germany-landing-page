@@ -9,9 +9,16 @@ import {
   FaBookOpen,
   FaCertificate,
 } from "react-icons/fa";
-import { FiCheck, FiArrowRight, FiExternalLink } from "react-icons/fi";
+import {
+  FiCheck,
+  FiArrowRight,
+  FiExternalLink,
+  FiDownload,
+} from "react-icons/fi";
 import type { IconType } from "react-icons";
 import Image from "next/image";
+import ModalForm from "./ModalForm";
+import { useState } from "react";
 
 interface UniversityType {
   Icon: IconType;
@@ -272,11 +279,13 @@ const UniCard: React.FC<UniCardProps> = ({ uni, index }) => {
 
 interface UniversityCardProps {
   university: University;
+  onLearnMore: () => void;
   index: number;
 }
 
 const UniversityCard: React.FC<UniversityCardProps> = ({
   university,
+  onLearnMore,
   index,
 }) => {
   return (
@@ -327,7 +336,11 @@ const UniversityCard: React.FC<UniversityCardProps> = ({
         </div>
 
         {/* Learn More Button */}
-        <button className="w-full mt-4 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-xs sm:text-sm font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 group/btn">
+        <button
+          type="button"
+          onClick={onLearnMore}
+          className="w-full cursor-pointer mt-4 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-xs sm:text-sm font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 group/btn"
+        >
           Learn More
           <FiExternalLink className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
         </button>
@@ -336,139 +349,145 @@ const UniversityCard: React.FC<UniversityCardProps> = ({
   );
 };
 
-const PartnersSection: React.FC = () => (
-  <section
-    id="why-germany"
-    className="relative py-16 sm:py-20 bg-[#f8faff] overflow-hidden"
-  >
-    {/* Background blobs */}
-    <div className="absolute top-[-8%] left-[-5%] w-100 sm:w-125 h-100 sm:h-125 rounded-full bg-blue-50/60 blur-[80px] pointer-events-none" />
-    <div className="absolute bottom-[-5%] right-[-5%] w-87.5 sm:w-112.5 h-87.5 sm:h-112.5 rounded-full bg-indigo-50/40 blur-[70px] pointer-events-none" />
+const PartnersSection: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  return (
+    <section
+      id="why-germany"
+      className="relative py-16 sm:py-20 bg-[#f8faff] overflow-hidden"
+    >
+      {/* Background blobs */}
+      <div className="absolute top-[-8%] left-[-5%] w-100 sm:w-125 h-100 sm:h-125 rounded-full bg-blue-50/60 blur-[80px] pointer-events-none" />
+      <div className="absolute bottom-[-5%] right-[-5%] w-87.5 sm:w-112.5 h-87.5 sm:h-112.5 rounded-full bg-indigo-50/40 blur-[70px] pointer-events-none" />
 
-    <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
-      <motion.div
-        variants={fadeUp(0)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
-      >
-        <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white border border-blue-100 shadow-[0_1px_4px_rgba(37,99,235,0.06)] text-xs sm:text-sm font-semibold text-blue-600 mb-4 sm:mb-5">
-          <FaGlobeEurope className="w-3.5 h-3.5" />
-          Heart of Europe
-        </span>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-gray-900 tracking-tight leading-tight mb-3 sm:mb-4 font-display">
-          Why Study in{" "}
-          <span className="bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
-            Germany?
+      <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
+        <motion.div
+          variants={fadeUp(0)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
+        >
+          <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white border border-blue-100 shadow-[0_1px_4px_rgba(37,99,235,0.06)] text-xs sm:text-sm font-semibold text-blue-600 mb-4 sm:mb-5">
+            <FaGlobeEurope className="w-3.5 h-3.5" />
+            Heart of Europe
           </span>
-        </h2>
-        <p className="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed">
-          Europe&apos;s largest economy and a global hub for engineering,
-          innovation, and world-class education
-        </p>
-      </motion.div>
-
-      {/* ════════ Why Choose Germany — 4 cards ════════ */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-16 sm:mb-20">
-        {whyChoose.map((item: WhyChooseItem, index: number) => (
-          <FeatureCard key={item.title} item={item} index={index} />
-        ))}
-      </div>
-
-      {/* ════════ University Types ════════ */}
-      <motion.div
-        variants={fadeUp(0)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="text-center mb-8 sm:mb-10"
-      >
-        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight font-display">
-          Choose Your{" "}
-          <span className="bg-linear-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-            University Path
-          </span>
-        </h3>
-      </motion.div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-16 sm:mb-20">
-        {universityTypes.map((uni: UniversityType, index: number) => (
-          <UniCard key={uni.title} uni={uni} index={index} />
-        ))}
-      </div>
-
-      {/*Featured Universities Grid  */}
-      <motion.div
-        variants={fadeUp(0)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="text-center mb-8 sm:mb-12"
-      >
-        <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white border border-blue-100 shadow-[0_1px_4px_rgba(37,99,235,0.06)] text-xs sm:text-sm font-semibold text-blue-600 mb-4">
-          <FaUniversity className="w-3.5 h-3.5" />
-          Partner Universities
-        </span>
-        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight font-display mb-3">
-          Featured{" "}
-          <span className="bg-linear-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-            German Universities
-          </span>
-        </h3>
-        <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
-          Explore world-renowned institutions offering cutting-edge programs in
-          engineering, sciences, and more
-        </p>
-      </motion.div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-14 sm:mb-18">
-        {featuredUniversities.map((uni: University, index: number) => (
-          <UniversityCard key={uni.name} university={uni} index={index} />
-        ))}
-      </div>
-
-      {/* ════════ Bottom CTA ════════ */}
-      <motion.div
-        variants={fadeUp(0.15)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="text-center"
-      >
-        <div className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-          <a
-            href="#contact"
-            className="group relative inline-flex items-center justify-center gap-2 sm:gap-2.5 px-7 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold text-sm sm:text-[0.95rem] text-white overflow-hidden shadow-[0_6px_24px_-4px_rgba(37,99,235,0.35)] hover:shadow-[0_10px_32px_-2px_rgba(37,99,235,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
-          >
-            <span className="absolute inset-0 bg-linear-to-r from-blue-600 to-blue-500" />
-            <span className="absolute inset-0 bg-linear-to-r from-blue-700 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative flex items-center gap-2 sm:gap-2.5">
-              Start Your Journey
-              <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-gray-900 tracking-tight leading-tight mb-3 sm:mb-4 font-display">
+            Why Study in{" "}
+            <span className="bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+              Germany?
             </span>
-          </a>
+          </h2>
+          <p className="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed">
+            Europe&apos;s largest economy and a global hub for engineering,
+            innovation, and world-class education
+          </p>
+        </motion.div>
 
-          <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-gray-200 text-gray-700 text-sm font-semibold hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-            Download Brochure
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-          </button>
+        {/* Why Choose Germany — 4 cards*/}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-16 sm:mb-20">
+          {whyChoose.map((item: WhyChooseItem, index: number) => (
+            <FeatureCard key={item.title} item={item} index={index} />
+          ))}
         </div>
-      </motion.div>
-    </div>
-  </section>
-);
+
+        {/*  University Types  */}
+        <motion.div
+          variants={fadeUp(0)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="text-center mb-8 sm:mb-10"
+        >
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight font-display">
+            Choose Your{" "}
+            <span className="bg-linear-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+              University Path
+            </span>
+          </h3>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-16 sm:mb-20">
+          {universityTypes.map((uni: UniversityType, index: number) => (
+            <UniCard key={uni.title} uni={uni} index={index} />
+          ))}
+        </div>
+
+        {/*Featured Universities Grid  */}
+        <motion.div
+          variants={fadeUp(0)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="text-center mb-8 sm:mb-12"
+        >
+          <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white border border-blue-100 shadow-[0_1px_4px_rgba(37,99,235,0.06)] text-xs sm:text-sm font-semibold text-blue-600 mb-4">
+            <FaUniversity className="w-3.5 h-3.5" />
+            Partner Universities
+          </span>
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight font-display mb-3">
+            Featured{" "}
+            <span className="bg-linear-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+              German Universities
+            </span>
+          </h3>
+          <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
+            Explore world-renowned institutions offering cutting-edge programs
+            in engineering, sciences, and more
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-14 sm:mb-18">
+          {featuredUniversities.map((uni: University, index: number) => (
+            <UniversityCard
+              key={uni.name}
+              university={uni}
+              index={index}
+              onLearnMore={() => setIsModalOpen(true)}
+            />
+          ))}
+        </div>
+
+        <motion.div
+          variants={fadeUp(0.15)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <div className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+            {/* Primary CTA */}
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="group cursor-pointer relative inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base text-white bg-linear-to-r from-blue-600 to-blue-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 overflow-hidden"
+            >
+              {/* Shimmer effect */}
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out">
+                <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-12" />
+              </span>
+
+              <span className="relative flex items-center gap-2">
+                Start Your Journey
+                <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+              </span>
+            </button>
+
+            {/* Secondary CTA */}
+            <button
+              type="button"
+              className="group cursor-pointer inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-gray-200 text-gray-700 text-sm sm:text-base font-medium hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 shadow-sm"
+            >
+              Download Brochure
+              <FiDownload className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
+            </button>
+          </div>
+        </motion.div>
+      </div>
+
+      <ModalForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </section>
+  );
+};
 
 export default PartnersSection;

@@ -167,7 +167,7 @@ const SingleStatCard: React.FC<StatCardProps> = ({ stat, index }) => {
 };
 
 const StatsSection: React.FC = () => (
-  <section className="py-10 sm:py-14 md:py-16 bg-linear-to-b from-[#f0f4ff] to-[#f8faff]">
+  <section className="py-10  bg-linear-to-b from-[#f0f4ff] to-[#f8faff]">
     <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
       {/* Optional section label */}
       <motion.p

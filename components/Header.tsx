@@ -16,6 +16,7 @@ import {
   FiArrowUpRight,
 } from "react-icons/fi";
 import Image from "next/image";
+import ModalForm from "./ModalForm";
 
 interface NavLink {
   label: string;
@@ -102,6 +103,7 @@ const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
   const activeSection = useActiveSection(navLinks.map((l: NavLink) => l.href));
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   /* ── Scroll listener ── */
   useEffect(() => {
@@ -190,8 +192,8 @@ const Header: React.FC = () => {
             </a>
 
             <a
-              href="#contact"
-              className="group relative flex items-center gap-2 text-sm font-semibold text-white px-6 py-2.5 rounded-full overflow-hidden transition-all duration-300 hover:-translate-y-px active:translate-y-0 bg-linear-to-r from-blue-600 to-blue-500 shadow-[0_4px_16px_-3px_rgba(37,99,235,0.35)] hover:shadow-[0_6px_24px_-2px_rgba(37,99,235,0.4)]"
+              onClick={() => setIsModalOpen(true)}
+              className="group cursor-pointer relative flex items-center gap-2 text-sm font-semibold text-white px-6 py-2.5 rounded-full overflow-hidden transition-all duration-300 hover:-translate-y-px active:translate-y-0 bg-linear-to-r from-blue-600 to-blue-500 shadow-[0_4px_16px_-3px_rgba(37,99,235,0.35)] hover:shadow-[0_6px_24px_-2px_rgba(37,99,235,0.4)]"
             >
               <span className="absolute inset-0 bg-linear-to-r from-blue-700 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative">Free Consultation</span>
@@ -341,7 +343,6 @@ const Header: React.FC = () => {
         </AnimatePresence>
       </header>
 
-      {/* ── Backdrop Overlay ── */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -355,6 +356,8 @@ const Header: React.FC = () => {
           />
         )}
       </AnimatePresence>
+
+      <ModalForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };
