@@ -174,7 +174,7 @@ const WhyGermany: React.FC = () => (
           {/* Main image */}
           <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_16px_48px_-10px_rgba(30,64,175,0.12)] sm:shadow-[0_20px_60px_-12px_rgba(30,64,175,0.14)] border border-white/80 ring-1 ring-blue-100/30">
             <Image
-              src="/why_choose.png"
+              src="/why_choose.webp"
               alt="German university campus with students"
               width={720}
               height={520}

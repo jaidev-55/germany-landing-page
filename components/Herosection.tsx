@@ -96,7 +96,7 @@ const HeroSection: React.FC = () => {
   return (
     <section className="relative pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-36 md:pb-28 lg:pt-40 lg:pb-32 overflow-hidden bg-[#f8faff]">
       <svg
-        className="absolute top-0 right-0 w-70 sm:w-87.5 lg:w-105 h-70 sm:h-87.5 lg:h-105 text-blue-200/25 pointer-events-none hidden sm:block"
+        className="absolute top-0 right-0 w-70 sm:w-87.5 lg:w-105 h-70 sm:h-87.5 lg:h-105 text-blue-300/25 pointer-events-none hidden sm:block"
         viewBox="0 0 420 420"
         fill="none"
       >
@@ -254,7 +254,7 @@ const HeroSection: React.FC = () => {
             {/* Main image */}
             <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_16px_48px_-10px_rgba(30,64,175,0.12)] sm:shadow-[0_20px_60px_-12px_rgba(30,64,175,0.14)] border border-white/80 ring-1 ring-blue-100/30 lg:min-h-120 xl:min-h-130">
               <Image
-                src="/hero_banner.png"
+                src="/hero_banner.webp"
                 alt="Happy students at a German university campus"
                 width={720}
                 height={520}
