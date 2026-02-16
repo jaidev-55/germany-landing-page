@@ -153,7 +153,6 @@ const Header: React.FC = () => {
             </div>
           </a>
 
-          {/* ── Desktop Navigation ── */}
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link: NavLink) => {
               const isActive: boolean = activeSection === link.href;
