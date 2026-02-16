@@ -68,7 +68,7 @@ const pop = (delay: number = 0): Variants => ({
 const trustBadges: TrustBadgeItem[] = [
   {
     Icon: FaGraduationCap,
-    label: "Low-Tuition Education",
+    label: "Low tuition Fee",
     sub: "400+ Public Universities",
   },
   {
