@@ -97,7 +97,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose }) => {
           phone: formData.phone,
           city: formData.city,
           test_type: "Academic",
-          source_form: "modal_form",
+          source_form: "Germany_landing_page",
           page_url: window.location.href,
         }),
       });

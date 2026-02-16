@@ -117,12 +117,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
       </div>
 
       {/* Title */}
-      <h3 className="font-bold text-gray-900 text-[0.95rem] sm:text-base mb-2 font-display">
+      <h3 className="font-bold text-gray-900 text-[0.95rem] sm:text-xl mb-2 font-display">
         {service.title}
       </h3>
 
       {/* Description */}
-      <p className="text-gray-400 text-xs sm:text-[0.8rem] leading-relaxed mb-4 sm:mb-5">
+      <p className="text-gray-500 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5">
         {service.desc}
       </p>
 
@@ -197,7 +197,7 @@ const ServicesSection: React.FC = () => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="text-gray-400 text-sm sm:text-base md:text-[1.05rem] leading-relaxed"
+            className="text-gray-500 text-sm sm:text-base md:text-[1.05rem] leading-relaxed"
           >
             Your invincible partner from choosing the right university to
             landing in Germany — every step, completely guided and{" "}

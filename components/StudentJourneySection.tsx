@@ -7,6 +7,7 @@ import {
   FaFileAlt,
   FaPassport,
   FaPlane,
+  FaUniversity,
 } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
 import type { IconType } from "react-icons";
@@ -62,9 +63,20 @@ const steps: StepItem[] = [
     accentBg: "bg-violet-50",
     accentBorder: "border-violet-100/50",
   },
+
+  {
+    Icon: FaUniversity,
+    step: 4,
+    title: "Blocked Account & Financial Support",
+    desc: "Complete assistance with opening your German blocked account, fund transfer guidance, and financial documentation to ensure smooth visa approval.",
+    accent: "text-indigo-600",
+    accentBg: "bg-indigo-50",
+    accentBorder: "border-indigo-100/50",
+  },
+
   {
     Icon: FaPassport,
-    step: 4,
+    step: 5,
     title: "Visa Processing",
     desc: "Financial proof, blocked account setup (~€12,000/yr), health insurance, and visa appointment booking.",
     accent: "text-cyan-600",
@@ -73,7 +85,7 @@ const steps: StepItem[] = [
   },
   {
     Icon: FaPlane,
-    step: 5,
+    step: 6,
     title: "Land in Germany",
     desc: "Free post-admission assistance — pre-departure orientation, travel planning, and arrival support.",
     accent: "text-emerald-600",
@@ -97,11 +109,11 @@ const StepCard: React.FC<StepCardProps> = ({ step, index, isLast }) => {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-30px" }}
-      className="relative flex flex-col items-center text-center"
+      className="group relative flex flex-col items-center text-center"
     >
-      {/* Connector line — hidden on last item and on mobile */}
-      {!isLast && (
-        <div className="hidden lg:block absolute top-6 left-[calc(50%+28px)] w-[calc(100%-56px)] h-0.5">
+      {/* Connector line — hidden on last item and after 3rd step */}
+      {!isLast && index !== 2 && (
+        <div className="hidden lg:block absolute top-8 left-[calc(50%+32px)] w-[calc(100%-64px)] h-0.5">
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
@@ -111,27 +123,29 @@ const StepCard: React.FC<StepCardProps> = ({ step, index, isLast }) => {
               delay: 0.3 + index * 0.1,
               ease: customEase,
             }}
-            className="w-full h-full origin-left bg-linear-to-r from-blue-200 to-blue-100 rounded-full"
+            className="w-full h-full origin-left bg-linear-to-r from-blue-300 to-blue-100 rounded-full"
           />
         </div>
       )}
 
-      {/* Step number circle */}
+      {/* Icon container */}
       <div
-        className={`relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${step.accentBg} border ${step.accentBorder} mb-4 sm:mb-5 group-hover:scale-105 transition-transform duration-300`}
+        className={`relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl ${step.accentBg} border ${step.accentBorder} mb-4 sm:mb-5 group-hover:scale-105 transition-transform duration-300`}
       >
-        <CardIcon className={`w-5 h-5 sm:w-6 sm:h-6 ${step.accent}`} />
+        <CardIcon className={`w-6 h-6 sm:w-7 sm:h-7 ${step.accent}`} />
         {/* Step badge */}
-        <span className="absolute -top-1.5 -right-1.5 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gray-900 text-white text-[0.55rem] sm:text-[0.6rem] font-bold flex items-center justify-center border-2 border-white shadow-sm">
+        <span className="absolute -top-2 -right-2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-blue-600 text-white text-[0.65rem] sm:text-xs font-bold flex items-center justify-center border-[2.5px] border-white shadow-md">
           {step.step}
         </span>
       </div>
 
-      {/* Content */}
-      <h3 className="font-bold text-gray-900 text-[0.88rem] sm:text-[0.95rem] mb-1.5 sm:mb-2 max-w-45 sm:max-w-50 leading-snug">
+      {/* Title */}
+      <h3 className="font-bold text-gray-900 text-[0.95rem] sm:text-base lg:text-[1.05rem] mb-1.5 sm:mb-2 leading-snug px-1">
         {step.title}
       </h3>
-      <p className="text-gray-400 text-[0.7rem] sm:text-xs leading-relaxed max-w-50 sm:max-w-55">
+
+      {/* Description */}
+      <p className="text-gray-500 text-[0.8rem] sm:text-sm leading-[1.6] px-1">
         {step.desc}
       </p>
     </motion.div>
@@ -143,15 +157,15 @@ const StepCard: React.FC<StepCardProps> = ({ step, index, isLast }) => {
    */
 
 const StudentJourneySection: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   return (
-    <section className="relative py-16  bg-white overflow-hidden">
+    <section className="relative py-16 sm:py-20 md:py-28 bg-white overflow-hidden">
       {/* Background */}
       <div className="absolute top-[-6%] left-[-5%] w-87.5 sm:w-112.5 h-87.5 sm:h-112.5 rounded-full bg-blue-50/40 blur-[80px] pointer-events-none" />
       <div className="absolute bottom-[-8%] right-[-5%] w-75 sm:w-100 h-75 sm:h-100 rounded-full bg-indigo-50/30 blur-[70px] pointer-events-none" />
 
       <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
-        {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <motion.div
             variants={fadeUp(0)}
@@ -183,7 +197,7 @@ const StudentJourneySection: React.FC = () => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="text-gray-400 text-sm sm:text-base md:text-[1.05rem] leading-[1.7] max-w-2xl mx-auto"
+            className="text-gray-500 text-sm sm:text-base md:text-[1.05rem] leading-[1.7] max-w-2xl mx-auto"
           >
             Abroad Scholar guides you through the entire process from beginning
             to end —{" "}
@@ -191,18 +205,21 @@ const StudentJourneySection: React.FC = () => {
           </motion.p>
         </div>
 
-        {/* Desktop: 5 columns */}
-        <div className="hidden lg:grid lg:grid-cols-5 gap-4 lg:gap-6">
-          {steps.map((step: StepItem, index: number) => (
-            <StepCard
-              key={step.title}
-              step={step}
-              index={index}
-              isLast={index === steps.length - 1}
-            />
-          ))}
+        {/* Desktop: 3 top + 2 bottom centered */}
+        <div className="hidden lg:block">
+          <div className="hidden lg:grid grid-cols-3 gap-8 xl:gap-10">
+            {steps.map((step, index) => (
+              <StepCard
+                key={step.title}
+                step={step}
+                index={index}
+                isLast={index === steps.length - 1}
+              />
+            ))}
+          </div>
         </div>
 
+        {/* Mobile/Tablet: vertical timeline */}
         <div className="lg:hidden relative pl-8 sm:pl-10 space-y-6 sm:space-y-8">
           {/* Vertical line */}
           <div className="absolute left-2.75 sm:left-3.25 top-2 bottom-2 w-0.5 bg-linear-to-b from-blue-300 via-indigo-300 to-emerald-300 rounded-full" />
@@ -251,7 +268,7 @@ const StudentJourneySection: React.FC = () => {
         </div>
 
         <motion.div
-          variants={fadeUp(0.35)}
+          variants={fadeUp(0.4)}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
@@ -260,21 +277,20 @@ const StudentJourneySection: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="group relative inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base text-white bg-linear-to-r from-blue-600 to-blue-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 overflow-hidden cursor-pointer"
+            className="group relative inline-flex items-center justify-center gap-2 sm:gap-2.5 px-7 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base text-white bg-linear-to-r from-blue-600 to-blue-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 overflow-hidden cursor-pointer"
           >
             {/* Shimmer */}
             <span className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out">
               <span className="absolute inset-0 pointer-events-none bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-12" />
             </span>
 
-            <span className="relative flex items-center gap-2">
-              Start Step 1 — Free Counseling
+            <span className="relative flex items-center gap-2 sm:gap-2.5">
+              Begin Your Germany Journey — Free Consultation
               <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </span>
           </button>
         </motion.div>
       </div>
-
       <ModalForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );

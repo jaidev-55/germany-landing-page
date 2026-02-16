@@ -91,7 +91,7 @@ const universityTypes: UniversityType[] = [
       "English-taught programmes",
       "Faster application processing",
       "Flexible intake dates",
-      "APS waiver available via Abroad Scholar",
+      "Dedicated admission support from application to visa",
     ],
     highlight: "Direct networking & internships at top German companies",
     accent: "text-indigo-600",
@@ -212,10 +212,10 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ item, index }) => {
       <div className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-50 border border-blue-100/50 group-hover:bg-blue-600 group-hover:border-blue-600 transition-colors duration-300 mb-4">
         <CardIcon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 group-hover:text-white transition-colors duration-300" />
       </div>
-      <h3 className="font-bold text-gray-900 text-[0.95rem] sm:text-base mb-1.5">
+      <h3 className="font-bold text-gray-900  sm:text-xl mb-1.5">
         {item.title}
       </h3>
-      <p className="text-gray-400 text-xs sm:text-[0.8rem] leading-relaxed">
+      <p className="text-gray-500 sm:text-sm leading-relaxed">
         {item.description}
       </p>
     </motion.div>
@@ -248,7 +248,7 @@ const UniCard: React.FC<UniCardProps> = ({ uni, index }) => {
       <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">
         {uni.title}
       </h3>
-      <p className="text-gray-400 text-sm sm:text-[0.88rem] leading-relaxed mb-5 sm:mb-6">
+      <p className="text-gray-500 text-sm  leading-relaxed mb-5 sm:mb-6">
         {uni.description}
       </p>
 
@@ -304,20 +304,6 @@ const UniversityCard: React.FC<UniversityCardProps> = ({
           fill
           className="object-cover"
         />
-
-        {/* Type Badge */}
-        <div className="absolute top-3 right-3 z-10">
-          <span
-            className={`inline-flex items-center px-2.5 py-1 rounded-full text-[0.65rem] sm:text-xs font-semibold backdrop-blur-sm border
-      ${
-        university.type === "public"
-          ? "bg-blue-100/90 text-blue-700 border-blue-200"
-          : "bg-purple-100/90 text-purple-700 border-purple-200"
-      }`}
-          >
-            {university.type === "public" ? "Public" : "Private"}
-          </span>
-        </div>
       </div>
 
       {/* University Info */}
@@ -377,7 +363,7 @@ const PartnersSection: React.FC = () => {
               Germany?
             </span>
           </h2>
-          <p className="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed">
+          <p className="text-gray-500 text-sm sm:text-base md:text-lg leading-relaxed">
             Europe&apos;s largest economy and a global hub for engineering,
             innovation, and world-class education
           </p>
@@ -430,7 +416,7 @@ const PartnersSection: React.FC = () => {
               German Universities
             </span>
           </h3>
-          <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
+          <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto">
             Explore world-renowned institutions offering cutting-edge programs
             in engineering, sciences, and more
           </p>
@@ -470,15 +456,6 @@ const PartnersSection: React.FC = () => {
                 Start Your Journey
                 <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
               </span>
-            </button>
-
-            {/* Secondary CTA */}
-            <button
-              type="button"
-              className="group cursor-pointer inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-gray-200 text-gray-700 text-sm sm:text-base font-medium hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 shadow-sm"
-            >
-              Download Brochure
-              <FiDownload className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
             </button>
           </div>
         </motion.div>

@@ -5,6 +5,8 @@ import { motion, type Variants, type Transition } from "framer-motion";
 import { FaClock, FaGraduationCap, FaUsers, FaChartLine } from "react-icons/fa";
 import type { IconType } from "react-icons";
 
+/* ═══════════ TYPES ═══════════ */
+
 interface StatItem {
   Icon: IconType;
   value: number;
@@ -12,12 +14,17 @@ interface StatItem {
   suffix?: string;
   label: string;
   description: string;
+  accent: string;
+  accentBg: string;
+  accentBorder: string;
 }
 
 interface CountUpResult {
   count: number;
   ref: RefObject<HTMLDivElement | null>;
 }
+
+/* ═══════════ DATA ═══════════ */
 
 const stats: StatItem[] = [
   {
@@ -26,6 +33,9 @@ const stats: StatItem[] = [
     suffix: "+",
     label: "International Students",
     description: "Study in Germany yearly",
+    accent: "text-blue-500",
+    accentBg: "bg-blue-50",
+    accentBorder: "border-blue-100/50",
   },
   {
     Icon: FaGraduationCap,
@@ -33,6 +43,9 @@ const stats: StatItem[] = [
     suffix: "+",
     label: "Programs Available",
     description: "Across all fields of study",
+    accent: "text-indigo-500",
+    accentBg: "bg-indigo-50",
+    accentBorder: "border-indigo-100/50",
   },
   {
     Icon: FaClock,
@@ -40,6 +53,9 @@ const stats: StatItem[] = [
     suffix: " Months",
     label: "Post-Study Work Visa",
     description: "Stay-back after graduation",
+    accent: "text-cyan-500",
+    accentBg: "bg-cyan-50",
+    accentBorder: "border-cyan-100/50",
   },
   {
     Icon: FaChartLine,
@@ -47,6 +63,9 @@ const stats: StatItem[] = [
     suffix: "%",
     label: "of EU's GDP",
     description: "Europe's largest economy",
+    accent: "text-emerald-500",
+    accentBg: "bg-emerald-50",
+    accentBorder: "border-emerald-100/50",
   },
 ];
 
@@ -54,8 +73,8 @@ const stats: StatItem[] = [
 
 const customEase: [number, number, number, number] = [0.25, 0.8, 0.25, 1];
 
-const cardVariant = (delay: number): Variants => ({
-  hidden: { opacity: 0, y: 28 },
+const fadeUp = (delay: number = 0): Variants => ({
+  hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
     y: 0,
@@ -65,7 +84,7 @@ const cardVariant = (delay: number): Variants => ({
 
 /* ═══════════ COUNT-UP HOOK ═══════════ */
 
-function useCountUp(end: number, duration: number = 2000): CountUpResult {
+function useCountUp(end: number, duration: number = 1800): CountUpResult {
   const [count, setCount] = useState<number>(0);
   const [started, setStarted] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -82,7 +101,7 @@ function useCountUp(end: number, duration: number = 2000): CountUpResult {
           observer.disconnect();
         }
       },
-      { threshold: 0.3 },
+      { threshold: 0.2 },
     );
 
     observer.observe(el);
@@ -92,100 +111,124 @@ function useCountUp(end: number, duration: number = 2000): CountUpResult {
   useEffect(() => {
     if (!started) return;
 
-    const totalFrames = Math.ceil(duration / 16);
-    const step = end / totalFrames;
-    let current = 0;
+    const startTime = performance.now();
 
-    const intervalId = setInterval(() => {
-      current += step;
-      if (current >= end) {
-        setCount(end);
-        clearInterval(intervalId);
+    const animate = (now: number): void => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutExpo curve for snappy start, smooth end
+      const eased = 1 - Math.pow(1 - progress, 4);
+      const current = Math.floor(eased * end);
+
+      setCount(current);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
       } else {
-        setCount(Math.floor(current));
+        setCount(end);
       }
-    }, 16);
+    };
 
-    return () => clearInterval(intervalId);
+    requestAnimationFrame(animate);
   }, [started, end, duration]);
 
   return { count, ref };
 }
 
-/* ═══════════ FORMAT NUMBER ═══════════ */
+/* FORMAT NUMBER */
 
 function formatCount(value: number, total: number): string {
   if (total >= 100000) {
     const k = value / 1000;
     return k >= 1 ? `${Math.floor(k)}K` : value.toString();
   }
-  return value.toLocaleString();
+  if (total >= 1000) {
+    return value.toLocaleString();
+  }
+  return value.toString();
 }
 
 interface StatCardProps {
   stat: StatItem;
   index: number;
+  isLast: boolean;
 }
 
-const SingleStatCard: React.FC<StatCardProps> = ({ stat, index }) => {
+const SingleStat: React.FC<StatCardProps> = ({ stat, index, isLast }) => {
   const { count, ref } = useCountUp(stat.value);
   const CardIcon = stat.Icon;
 
   return (
     <motion.div
       ref={ref}
-      variants={cardVariant(index * 0.1)}
+      variants={fadeUp(index * 0.08)}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-40px" }}
-      className="group relative bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_-8px_rgba(37,99,235,0.1)] hover:border-blue-100 hover:-translate-y-0.5 transition-all duration-300"
+      viewport={{ once: true, margin: "-30px" }}
+      className="relative flex flex-col items-center text-center py-4 sm:py-5 md:py-6 px-2.5 sm:px-3 md:px-4"
     >
       {/* Icon */}
-      <div className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 rounded-xl bg-blue-50 border border-blue-100/50 group-hover:bg-blue-600 group-hover:border-blue-600 transition-colors duration-300">
-        <CardIcon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 group-hover:text-white transition-colors duration-300" />
+      <div
+        className={`flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg sm:rounded-xl ${stat.accentBg} border ${stat.accentBorder} mb-2.5 sm:mb-3 md:mb-4`}
+      >
+        <CardIcon
+          className={`w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 ${stat.accent}`}
+        />
       </div>
 
-      {/* Animated number */}
-      <div className="text-center">
-        <div className="text-2xl sm:text-3xl lg:text-[2rem] font-extrabold text-gray-900 tracking-tight font-display leading-none">
-          {stat.prefix || ""}
-          {formatCount(count, stat.value)}
-          {stat.suffix || ""}
-        </div>
-        <div className="text-sm sm:text-[0.88rem] font-bold text-gray-700 mt-1.5">
-          {stat.label}
-        </div>
-        <div className="text-xs sm:text-[0.75rem] text-gray-400 font-medium mt-0.5">
-          {stat.description}
-        </div>
+      {/* Number */}
+      <div className="text-lg sm:text-xl md:text-2xl lg:text-[1.75rem] font-extrabold text-gray-900 tracking-tight leading-none mb-1 sm:mb-1.5">
+        {stat.prefix || ""}
+        {formatCount(count, stat.value)}
+        {stat.suffix || ""}
       </div>
 
-      {/* Hover glow */}
-      <div className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-linear-to-br from-blue-500/2 to-cyan-400/1" />
+      {/* Label */}
+      <div className="text-[0.7rem] sm:text-xs md:text-sm font-bold text-gray-700 leading-tight sm:leading-snug px-1">
+        {stat.label}
+      </div>
+
+      {/* Sublabel */}
+      <div className="text-[0.6rem] sm:text-[0.65rem] md:text-xs text-gray-500 font-medium mt-0.5 px-1">
+        {stat.description}
+      </div>
+
+      {/* Vertical divider on mobile (bottom of each stat in first row) */}
+      {index < 2 && (
+        <span className="block lg:hidden absolute bottom-0 left-1/2 -translate-x-1/2 h-px w-16 bg-linear-to-r from-transparent via-gray-200 to-transparent" />
+      )}
+
+      {/* Horizontal divider on desktop (right side) */}
+      {!isLast && (
+        <span className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-linear-to-b from-transparent via-gray-200 to-transparent" />
+      )}
     </motion.div>
   );
 };
 
 const StatsSection: React.FC = () => (
-  <section className="py-10  bg-linear-to-b from-[#f0f4ff] to-[#f8faff]">
-    <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-      {/* Optional section label */}
-      <motion.p
-        initial={{ opacity: 0, y: 16 }}
+  <section className="relative py-3 sm:py-4 md:py-6 bg-[#f8faff]">
+    <div className="container mx-auto px-3 sm:px-4 md:px-6 max-w-6xl">
+      {/* Glass container */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, ease: customEase } as Transition}
-        className="text-center text-sm font-semibold text-blue-500 mb-6 sm:mb-8 tracking-wide uppercase"
+        transition={{ duration: 0.6, ease: customEase } as Transition}
+        className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl md:rounded-3xl border border-gray-100/80 shadow-[0_2px_12px_-4px_rgba(37,99,235,0.06)]"
       >
-        Germany at a Glance
-      </motion.p>
-
-      {/* Stats grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
-        {stats.map((stat: StatItem, index: number) => (
-          <SingleStatCard key={stat.label} stat={stat} index={index} />
-        ))}
-      </div>
+        {/* Stats row */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-0 lg:gap-y-0">
+          {stats.map((stat: StatItem, index: number) => (
+            <SingleStat
+              key={stat.label}
+              stat={stat}
+              index={index}
+              isLast={index === stats.length - 1}
+            />
+          ))}
+        </div>
+      </motion.div>
     </div>
   </section>
 );

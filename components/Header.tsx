@@ -195,6 +195,10 @@ const Header: React.FC = () => {
               onClick={() => setIsModalOpen(true)}
               className="group cursor-pointer relative flex items-center gap-2 text-sm font-semibold text-white px-6 py-2.5 rounded-full overflow-hidden transition-all duration-300 hover:-translate-y-px active:translate-y-0 bg-linear-to-r from-blue-600 to-blue-500 shadow-[0_4px_16px_-3px_rgba(37,99,235,0.35)] hover:shadow-[0_6px_24px_-2px_rgba(37,99,235,0.4)]"
             >
+              {/* Shimmer */}
+              <span className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out">
+                <span className="absolute inset-0 pointer-events-none bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-12" />
+              </span>
               <span className="absolute inset-0 bg-linear-to-r from-blue-700 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative">Free Consultation</span>
               <FiArrowUpRight className="relative w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -331,6 +335,10 @@ const Header: React.FC = () => {
                   onClick={closeMobile}
                   className="flex items-center justify-center gap-2 mt-3 mx-1 text-white px-6 py-3.5 rounded-xl text-[15px] font-semibold text-center bg-linear-to-r from-blue-600 to-blue-500 shadow-[0_4px_16px_-3px_rgba(37,99,235,0.3)] active:scale-[0.97] transition-transform duration-150"
                 >
+                  {/* Shimmer */}
+                  <span className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out">
+                    <span className="absolute inset-0 pointer-events-none bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-12" />
+                  </span>
                   Free Consultation
                   <FiArrowUpRight className="w-4 h-4" />
                 </motion.a>

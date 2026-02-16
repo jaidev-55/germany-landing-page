@@ -34,8 +34,6 @@ interface RequirementItem {
   detail: string;
 }
 
-/* ═══════════ ANIMATION ═══════════ */
-
 const customEase: [number, number, number, number] = [0.25, 0.8, 0.25, 1];
 
 const fadeUp = (delay: number = 0): Variants => ({
@@ -75,7 +73,7 @@ const benefits: BenefitCard[] = [
   },
   {
     Icon: FiGlobe,
-    title: "PR After 2 Years",
+    title: "PR After 3 Years",
     desc: "Get permanent residency in Germany just after two years through fast-tracked pathways.",
   },
 ];
@@ -113,7 +111,7 @@ const requirements: RequirementItem[] = [
   },
 ];
 
-/* ═══════════ BENEFIT CARD COMPONENT ═══════════ */
+/*  BENEFIT CARD COMPONENT */
 
 interface CardProps {
   item: BenefitCard;
@@ -133,10 +131,10 @@ const BenefitCardComponent: React.FC<CardProps> = ({ item, index }) => {
       <div className="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-orange-50 border border-orange-100/50 group-hover:bg-orange-500 group-hover:border-orange-500 transition-colors duration-300 mb-3 sm:mb-3.5">
         <CardIcon className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 group-hover:text-white transition-colors duration-300" />
       </div>
-      <h3 className="font-bold text-gray-900 text-[0.88rem] sm:text-[0.95rem] mb-1.5">
+      <h3 className="font-bold text-gray-900 text-[0.88rem] sm:text-xl mb-1.5">
         {item.title}
       </h3>
-      <p className="text-gray-400 text-xs sm:text-[0.8rem] leading-relaxed">
+      <p className="text-gray-500 text-xs sm:text-sm leading-relaxed">
         {item.desc}
       </p>
     </motion.div>
@@ -183,7 +181,7 @@ const IndianStudentsSection: React.FC = () => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="text-gray-400 text-sm sm:text-base md:text-[1.05rem] leading-[1.7] max-w-2xl mx-auto"
+            className="text-gray-500 text-sm sm:text-base md:text-[1.05rem] leading-[1.7] max-w-2xl mx-auto"
           >
             Indian students are drawn to Germany for its high-quality education
             system, dual education model, and zero or low-cost tuition fee
@@ -202,15 +200,15 @@ const IndianStudentsSection: React.FC = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="bg-[#f8faff] rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-100"
+          className="relative  rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow border-2 border-blue-300 ring-1 ring-blue-100/50"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14">
             {/* Left — Requirements */}
             <div>
-              <h3 className="text-lg sm:text-xl font-extrabold text-gray-900 mb-1.5 sm:mb-2 font-display">
+              <h3 className="text-lg sm:text-2xl font-extrabold text-gray-900 mb-1.5 sm:mb-2 font-display">
                 Requirements
               </h3>
-              <p className="text-gray-400 text-xs sm:text-sm mb-5 sm:mb-6">
+              <p className="text-gray-500 text-xs sm:text-base mb-5 sm:mb-6">
                 What you need to study in Germany
               </p>
 
@@ -220,16 +218,16 @@ const IndianStudentsSection: React.FC = () => {
                   return (
                     <div
                       key={req.label}
-                      className="flex items-start gap-3 sm:gap-3.5 bg-white rounded-xl p-3 sm:p-3.5 border border-gray-100 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+                      className="flex items-start gap-3 sm:gap-3.5 bg-white  rounded-xl p-3 sm:p-3.5 border border-gray-100 shadow-sm"
                     >
-                      <span className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-blue-50 border border-blue-100/50 shrink-0">
-                        <ReqIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-500" />
+                      <span className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12 rounded-lg bg-blue-50 border border-blue-100/50 shrink-0">
+                        <ReqIcon className="w-3.5 h-3.5 sm:w-6 sm:h-6 text-blue-500" />
                       </span>
                       <span>
-                        <span className="block text-gray-900 font-bold text-[0.82rem] sm:text-sm leading-snug">
+                        <span className="block text-gray-900 font-bold text-[0.82rem] sm:text-xl leading-snug">
                           {req.label}
                         </span>
-                        <span className="block text-gray-400 text-[0.7rem] sm:text-xs mt-0.5">
+                        <span className="block text-gray-500 text-[0.7rem] sm:text-sm mt-0.5">
                           {req.detail}
                         </span>
                       </span>
@@ -239,32 +237,32 @@ const IndianStudentsSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Right — Work & PR timeline */}
+            {/*  Work & PR timeline */}
             <div>
-              <h3 className="text-lg sm:text-xl font-extrabold text-gray-900 mb-1.5 sm:mb-2 font-display">
+              <h3 className="text-lg sm:text-2xl font-extrabold text-gray-900 mb-1.5 sm:mb-2 font-display">
                 Your Path to PR
               </h3>
-              <p className="text-gray-400 text-xs sm:text-sm mb-5 sm:mb-6">
+              <p className="text-gray-500 text-xs sm:text-base mb-5 sm:mb-6">
                 From student to permanent resident
               </p>
 
               {/* Timeline */}
               <div className="relative pl-6 sm:pl-8 space-y-6 sm:space-y-8">
                 {/* Vertical line */}
-                <div className="absolute left-2.25 sm:left-2.75 top-2 bottom-2 w-0.5 bg-linear-to-b from-blue-400 via-blue-300 to-emerald-400 rounded-full" />
+                <div className="absolute left-2.25 sm:left-3.5 top-2 bottom-2 w-0.5 bg-linear-to-b from-blue-400 via-blue-300 to-emerald-400 rounded-full" />
 
                 {/* Step 1 */}
                 <div className="relative">
-                  <span className="absolute -left-6 sm:-left-8 top-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-blue-500 border-[3px] border-white shadow-sm flex items-center justify-center">
+                  <span className="absolute -left-6 sm:-left-8 top-0.5 w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-blue-500 border-[3px] border-white shadow-sm flex items-center justify-center">
                     <span className="text-[0.5rem] sm:text-[0.55rem] font-bold text-white">
                       1
                     </span>
                   </span>
-                  <div className="bg-white rounded-xl p-3.5 sm:p-4 border border-gray-100 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
-                    <span className="block text-gray-900 font-bold text-[0.85rem] sm:text-sm">
+                  <div className="bg-white ml-2 rounded-xl p-3.5 sm:p-4 border border-gray-100 shadow-sm">
+                    <span className="block text-gray-900 font-bold text-[0.85rem] sm:text-xl">
                       Study Period
                     </span>
-                    <span className="block text-gray-400 text-[0.7rem] sm:text-xs mt-0.5">
+                    <span className="block text-gray-500 text-[0.7rem] sm:text-sm mt-0.5">
                       Work part-time up to 20 hrs/week during semester. 140 full
                       days (280 half days) per year.
                     </span>
@@ -273,16 +271,16 @@ const IndianStudentsSection: React.FC = () => {
 
                 {/* Step 2 */}
                 <div className="relative">
-                  <span className="absolute -left-6 sm:-left-8 top-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-blue-400 border-[3px] border-white shadow-sm flex items-center justify-center">
+                  <span className="absolute -left-6 sm:-left-8 top-0.5 w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-blue-400 border-[3px] border-white shadow-sm flex items-center justify-center">
                     <span className="text-[0.5rem] sm:text-[0.55rem] font-bold text-white">
                       2
                     </span>
                   </span>
-                  <div className="bg-white rounded-xl p-3.5 sm:p-4 border border-gray-100 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
-                    <span className="block text-gray-900 font-bold text-[0.85rem] sm:text-sm">
+                  <div className="bg-white ml-2  rounded-xl p-3.5 sm:p-4 border border-gray-100 shadow-sm">
+                    <span className="block  text-gray-900 font-bold text-[0.85rem] sm:text-xl">
                       18-Month Post-Study Visa
                     </span>
-                    <span className="block text-gray-400 text-[0.7rem] sm:text-xs mt-0.5">
+                    <span className="block text-gray-500 text-[0.7rem] sm:text-sm mt-0.5">
                       Work full-time after graduation with the post-study work
                       visa (PSW).
                     </span>
@@ -291,14 +289,14 @@ const IndianStudentsSection: React.FC = () => {
 
                 {/* Step 3 */}
                 <div className="relative">
-                  <span className="absolute -left-6 sm:-left-8 top-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500 border-[3px] border-white shadow-sm flex items-center justify-center">
+                  <span className="absolute -left-6 sm:-left-8 top-0.5 w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-emerald-500 border-[3px] border-white shadow-sm flex items-center justify-center">
                     <FiCheck className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
                   </span>
-                  <div className="bg-emerald-50 rounded-xl p-3.5 sm:p-4 border border-emerald-100/50">
-                    <span className="block text-gray-900 font-bold text-[0.85rem] sm:text-sm">
-                      PR After Just 2 Years
+                  <div className="bg-emerald-50  ml-2 rounded-xl p-3.5 sm:p-4 border shadow-sm border-emerald-100/50">
+                    <span className="block text-gray-900 font-bold text-[0.85rem] sm:text-xl">
+                      PR After Just 3 Years
                     </span>
-                    <span className="block text-gray-500 text-[0.7rem] sm:text-xs mt-0.5">
+                    <span className="block text-gray-500 text-[0.7rem] sm:text-sm mt-0.5">
                       Get permanent residency through fast-tracked pathways
                       after completing your post-graduation.
                     </span>
