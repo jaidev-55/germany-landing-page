@@ -207,7 +207,7 @@ const Header: React.FC = () => {
           <div className="flex lg:hidden items-center gap-2">
             {/* Quick phone icon on mobile */}
             <a
-              href="tel:+919876543210"
+              href="tel:+91 9500117792"
               className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-50 text-blue-500 active:bg-blue-100 transition-colors duration-150"
               aria-label="Call us"
             >
